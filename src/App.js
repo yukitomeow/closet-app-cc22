@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
-
+//
 export default function App() {
 
   const [closetData, setClosetData] = useState();//default value 
