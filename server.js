@@ -18,6 +18,8 @@ app.use(cors());//middlewear that request arrow to request other server
 app.use(express.json());//body にユーザーのリクエストが入ることがある、それをparse suruことでボディの情報を受け取ることができる
 //middlewareを指定するもの middleware function (req,res,next)　expressがくれたミドルウエア
 
+app.use(express.static(__dirname + "/build"))
+
 const logger = (req, res, next) => {
     console.log("hello!");
     next();//oteseinomonoha next()woyobu 自分で作ったミドルウェア
