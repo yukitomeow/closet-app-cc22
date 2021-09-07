@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
 import ReadOnlyRow from './component/ReadOnlyRow';
+import EditableRow from './component/EditableRow';
 
 export default function App() {
 
@@ -56,25 +57,28 @@ export default function App() {
   return (
     <div className="app-container">
       <a href="https://github.com/yukitomeow/soloApiCloset" target="_blank">Link to Github</a>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Color</th>
-            <th>Season</th>
-          </tr>
-        </thead>
-        <tbody>
-          {closetData.map((element) => {
-            return (
-
-              <ReadOnlyRow element={element} />
-
-            )
-          })}
-        </tbody>
-      </table>
+      <from>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Color</th>
+              <th>Season</th>
+            </tr>
+          </thead>
+          <tbody>
+            {closetData.map((element) => {
+              return (
+                <Fragment>
+                  <EditableRow />
+                  <ReadOnlyRow element={element} />
+                </Fragment>
+              )
+            })}
+          </tbody>
+        </table>
+      </from>
 
       <h2>Add an Item</h2>
       <form onSubmit={handleAddFormSubmit}>
