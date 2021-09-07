@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
-//import { element } from 'prop-types';
-//import Datatable from './component'
-
 
 export default function App() {
 
@@ -50,6 +47,28 @@ export default function App() {
           })}
         </tbody>
       </table>
+
+      <h2>Add an Item</h2>
+      <form>
+        <input
+          type="text"
+          name="type"
+          required="required"
+          placeholder="Enter type..."
+        />
+        <input
+          type="text"
+          name="color"
+          required="required"
+          placeholder="Enter color..."
+        />
+        <input
+          type="text"
+          name="season"
+          required="required"
+          placeholder="Enter season..."
+        />
+      </form>
     </div >
   )
 }
