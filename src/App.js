@@ -2,10 +2,40 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
+import { EventEmitter } from 'stream';
 
 export default function App() {
 
   const [closetData, setClosetData] = useState([]);//default value 
+  const [addFormData, setAddFormData] = useState({
+    type: '',
+    color: '',
+    season: ''
+  })
+
+  const handleAddFormChange = (event) => {
+    event.preventDefault();
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue
+
+    setAddFormData(newFormData);
+  };
+
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newItemadd = {
+      type: addFormData.type,
+      color: addFormData.color,
+      season: addFormData.season
+    }
+
+    const newItemadds = [...addFormData, newItemadd]
+    setAddFormData(newItemadds)
+  }
 
   //return が終わってから呼び出される
   useEffect(() => {//instead of using fetch use Axios
@@ -55,19 +85,23 @@ export default function App() {
           name="type"
           required="required"
           placeholder="Enter type..."
+          onChange={handleAddFormChange}
         />
         <input
           type="text"
           name="color"
           required="required"
           placeholder="Enter color..."
+          onChange={handleAddFormChange}
         />
         <input
           type="text"
           name="season"
           required="required"
           placeholder="Enter season..."
+          onChange={handleAddFormChange}
         />
+        <button type="submit">Add</button>
       </form>
     </div >
   )

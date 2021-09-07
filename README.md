@@ -1,6 +1,6 @@
 # Play Now
 
-Play at
+Play at (https://closet-app-cc22.herokuapp.com/)
 
 # Closet Organization App
 
