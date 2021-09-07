@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
+import ReadOnlyRow from './component/ReadOnlyRow';
 
 export default function App() {
 
@@ -67,14 +68,9 @@ export default function App() {
         <tbody>
           {closetData.map((element) => {
             return (
-              <div>
-                <tr>
-                  <td>{element.id}</td>
-                  <td>{element.type}</td>
-                  <td>{element.color}</td>
-                  <td>{element.season}</td>
-                </tr>
-              </div>
+
+              <ReadOnlyRow element={element} />
+
             )
           })}
         </tbody>
