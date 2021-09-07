@@ -12,7 +12,8 @@ export default function App() {
     type: '',
     color: '',
     season: ''
-  })
+  });
+  const [editItemId, setItemId] = useState(null);
 
   const handleAddFormChange = (event) => {
     event.preventDefault();// prevent event post request
@@ -71,8 +72,7 @@ export default function App() {
             {closetData.map((element) => {
               return (
                 <Fragment>
-                  <EditableRow />
-                  <ReadOnlyRow element={element} />
+                  {editItemId === element.id ? (<EditableRow />) : (<ReadOnlyRow element={element} />)}
                 </Fragment>
               )
             })}
