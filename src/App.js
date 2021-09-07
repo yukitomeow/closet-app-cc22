@@ -3,7 +3,7 @@ import React from 'react'
 import "./styles.css"
 import axios from 'axios'
 //import { element } from 'prop-types';
-import Datatable from './component'
+//import Datatable from './component'
 
 
 export default function App() {
@@ -24,14 +24,33 @@ export default function App() {
   }, [])//trigering ながれをおう
 
   return (
-    <div>
-      <h1>hello</h1>
-      {closetData.map((element) => {
-        return (
-          <div><Datatable data={element} /></div>
-        )
-      })}
-    </div>
+    <div className="app-container">
+      <a href="https://github.com/yukitomeow/soloApiCloset" target="_blank">Link to Github</a>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Season</th>
+          </tr>
+        </thead>
+        <tbody>
+          {closetData.map((element) => {
+            return (
+              <div>
+                <tr>
+                  <td>{element.id}</td>
+                  <td>{element.type}</td>
+                  <td>{element.color}</td>
+                  <td>{element.season}</td>
+                </tr>
+              </div>
+            )
+          })}
+        </tbody>
+      </table>
+    </div >
   )
 }
 
