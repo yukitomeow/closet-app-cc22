@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import "./styles.css"
 import axios from 'axios'
-import { EventEmitter } from 'stream';
 
 export default function App() {
 
@@ -14,7 +13,8 @@ export default function App() {
   })
 
   const handleAddFormChange = (event) => {
-    event.preventDefault();
+    event.preventDefault();// prevent event post request
+    console.log(event.target)
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
@@ -24,18 +24,20 @@ export default function App() {
     setAddFormData(newFormData);
   };
 
-  const handleAddFormSubmit = (event) => {
-    event.preventDefault();
-
-    const newItemadd = {
+  const handleAddFormSubmit = () => {
+    const newItem = {
       type: addFormData.type,
       color: addFormData.color,
       season: addFormData.season
     }
-
-    const newItemadds = [...addFormData, newItemadd]
-    setAddFormData(newItemadds)
+    axios.post("/items", newItem)
+      .then((response) => {
+        console.log("response.data", response.data)
+        return setClosetData(response.data)
+      })
   }
+
+
 
   //return が終わってから呼び出される
   useEffect(() => {//instead of using fetch use Axios
@@ -79,7 +81,7 @@ export default function App() {
       </table>
 
       <h2>Add an Item</h2>
-      <form>
+      <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
           name="type"
