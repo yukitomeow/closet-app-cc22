@@ -62,14 +62,18 @@ export default function App() {
     event.preventDefault();// prevent event post request
 
     const editedItem = {
+      // id: editItemId;
       type: editFormData.type,
       color: editFormData.color,
       season: editFormData.season,
     }
 
     const newItems = [...closetData];//// cocomade 41ふん　https://www.youtube.com/watch?v=dYjdzpZv5yc&t=1045s　！！！！
-    const index = closetData.findIndex((element) => element.id)
+    const index = closetData.findIndex((element) => element.id === editItemId);
 
+    newItems[index] = editedItem
+    setClosetData(newItems);
+    setItemId(null)
   }
 
   const handleEditClick = (event, element) => {
