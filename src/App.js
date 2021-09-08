@@ -68,7 +68,7 @@ export default function App() {
       season: editFormData.season,
     }
 
-    const newItems = [...closetData];//// cocomade 41ふん　https://www.youtube.com/watch?v=dYjdzpZv5yc&t=1045s　！！！！
+    const newItems = [...closetData];//// cocomade 41ふん　
     const index = closetData.findIndex((element) => element.id === editItemId);
 
     newItems[index] = editedItem
