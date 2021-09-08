@@ -1,6 +1,6 @@
 # Play Now
 
-Play at (https://vast-peak-09191.herokuapp.com)
+Play at (https://closet-app-cc22.herokuapp.com)
 
 # Closet Organization App
 
@@ -15,3 +15,4 @@ The idea here is organizing closet items on internet helps people to plan purcha
 - React
 - Axios
 - Cors
+- Heroku
