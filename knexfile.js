@@ -6,7 +6,7 @@ module.exports = {
     connection: {
         host: '127.0.0.1',//  ip address which machine jibunnno local no server
         user: process.env.DB_USER, //process.env はpcに入っている環境変数の入っているオブジェクト
-        //password: process.env.DB_PASSWORD,
+        password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME
     },
     migrations: {
