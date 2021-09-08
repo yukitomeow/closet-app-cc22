@@ -9,11 +9,11 @@ The idea here is organizing closet items on internet helps people to plan purcha
 
 # You need to install
 
-⋅⋅*`npm i`
-⋅⋅*`create-react-app`
-⋅⋅*`npm install psql`
-⋅⋅*`npm install express`
-⋅⋅*`npm install knex`
-⋅⋅*`npm install axios`
-⋅⋅*`npm install cors`
-⋅⋅*Create Heroku account and read this link (https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) 😈😈
+⋅⋅* `npm i`
+⋅⋅* `create-react-app`
+⋅⋅* `npm install psql`
+⋅⋅* `npm install express`
+⋅⋅* `npm install knex`
+⋅⋅* `npm install axios`
+⋅⋅* `npm install cors`
+⋅⋅* Create Heroku account and read this link (https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) 😈😈
