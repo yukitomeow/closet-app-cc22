@@ -3,12 +3,9 @@ require('dotenv').config(); // -r dotenv/config を使っていたらいらな�
 module.exports = {
     //development: {
     client: 'pg',//which kind of DB knex using
-    connection: {
-        host: process.env.DATABASE_URL || "127.0.0.1",//  ip address which machine jibunnno local no server
-        user: process.env.DB_USER, //process.env はpcに入っている環境変数の入っているオブジェクト
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    },
+    connection:
+        process.env.DATABASE_URL ||
+        `postgres://${process.env.DB_USER}@127.0.0.1:5432/${process.env.DB_NAME}`,
     migrations: {
         directory: __dirname + '/db/migrations',// where to look where the migration file is 
     },
