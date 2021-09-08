@@ -13,6 +13,11 @@ export default function App() {
     color: '',
     season: ''
   });
+  const [editFormData, setEditFormData] = useState({
+    type: '',
+    color: '',
+    season: ''
+  });
   const [editItemId, setItemId] = useState(null);
 
   const handleAddFormChange = (event) => {
@@ -21,11 +26,24 @@ export default function App() {
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
-    const newFormData = { ...addFormData };
+    const newFormData = { ...addFormData };//spread object means copy of addFormData
+
     newFormData[fieldName] = fieldValue
 
     setAddFormData(newFormData);
   };
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();// prevent event post request
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...editFormData }//spread object means copy of editFormData
+    newFormData[fieldName] = fieldValue;
+
+    setEditFormData(newFormData);
+  }
 
   const handleAddFormSubmit = () => {
     const newItem = {
@@ -38,6 +56,33 @@ export default function App() {
         console.log("response.data", response.data)
         return setClosetData(response.data)
       })
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();// prevent event post request
+
+    const editedItem = {
+      type: editFormData.type,
+      color: editFormData.color,
+      season: editFormData.season,
+    }
+
+    const newItems = [...closetData];//// cocomade 41ふん　https://www.youtube.com/watch?v=dYjdzpZv5yc&t=1045s　！！！！
+    const index = closetData.findIndex((element) => element.id)
+
+  }
+
+  const handleEditClick = (event, element) => {
+    event.preventDefault();// prevent event post request
+    setItemId(element.id);
+
+    const formValues = {
+      type: element.name,
+      color: element.color,
+      season: element.season,
+    }
+
+    setEditFormData(formValues)
   }
 
 
@@ -66,13 +111,19 @@ export default function App() {
               <th>Type</th>
               <th>Color</th>
               <th>Season</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {closetData.map((element) => {
               return (
                 <Fragment>
-                  {editItemId === element.id ? (<EditableRow />) : (<ReadOnlyRow element={element} />)}
+                  {editItemId === element.id ?
+                    (<EditableRow editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange} />
+                    ) : (
+                      <ReadOnlyRow element={element}
+                        handleEditClick={handleEditClick} />)}
                 </Fragment>
               )
             })}

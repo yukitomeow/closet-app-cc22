@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditableRow = () => {
+const EditableRow = ({ editFormData, handleEditFormChange }) => {
     return (
         <tr>
             <td>
@@ -11,6 +11,8 @@ const EditableRow = () => {
                     required="required"
                     placeholder="Enter type..."
                     name="type"
+                    value={editFormData.type}
+                    onChange={handleEditFormChange}
                 ></input>
             </td>
             <td>
@@ -19,6 +21,8 @@ const EditableRow = () => {
                     required="required"
                     placeholder="Enter color..."
                     name="color"
+                    value={editFormData.color}
+                    onChange={handleEditFormChange}
                 ></input>
             </td>
             <td>
@@ -27,7 +31,12 @@ const EditableRow = () => {
                     required="required"
                     placeholder="Enter season..."
                     name="season"
+                    value={editFormData.season}
+                    onChange={handleEditFormChange}
                 ></input>
+            </td>
+            <td>
+                <button type="submit">Save</button>
             </td>
         </tr>
     )
