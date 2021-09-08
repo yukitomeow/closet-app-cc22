@@ -6,6 +6,7 @@ module.exports = {
     connection:
         process.env.DATABASE_URL ||
         `postgres://${process.env.DB_USER}@127.0.0.1:5432/${process.env.DB_NAME}`,
+    ssl: { rejectUnauthorized: false },
     migrations: {
         directory: __dirname + '/db/migrations',// where to look where the migration file is 
     },
