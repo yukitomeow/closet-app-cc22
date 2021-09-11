@@ -39,7 +39,7 @@ export default function App() {
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
-    const newFormData = { ...editFormData }//spread object means copy of editFormData
+    const newFormData = { ...editFormData }//spread object means copy of editFormData   本物のコピーができる　参照ではない
     newFormData[fieldName] = fieldValue;
 
     setEditFormData(newFormData);
@@ -106,7 +106,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <a href="https://github.com/yukitomeow/soloApiCloset" target="_blank">Link to Github</a>
+      <a href="https://github.com/yukitomeow/closet-app-cc22" target="_blank">Link to Github</a>
       <from>
         <table>
           <thead>
