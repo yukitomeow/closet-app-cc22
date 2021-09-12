@@ -58,33 +58,65 @@ export default function App() {
       })
   };
 
-  const handleEditFormSubmit = (event) => {
+  const handleEditFormSubmit = (event) => {//koko???? here!!!
     event.preventDefault();// prevent event post request
 
+    console.log("id:", editItemId)
+    console.log("formdata:", editFormData)
     const editedItem = {
-      // id: editItemId;
+      id: editItemId,
       type: editFormData.type,
       color: editFormData.color,
       season: editFormData.season,
     }
 
-    const newItems = [...closetData];//// cocomade 41ふん　
-    const index = closetData.findIndex((element) => element.id === editItemId);
+    // const newItems = [...closetData];//// cocomade 41ふん　
+    // const index = closetData.findIndex((element) => element.id === editItemId);
 
-    newItems[index] = editedItem
-    setClosetData(newItems);
+    // newItems[index] = editedItem// updated to 
+
+    axios.patch(`/items/${editItemId}`, editedItem)//editedItem is req.body of the request. This is patch, so you dont need return request
+      .then(() => {
+        setClosetData((oldCloset) =>// old closet data (an array of objs)
+          oldCloset.map(item => {
+            if (item.id == editItemId) {
+              return {
+                ...item,
+                ...editFormData
+              }// item={type: cat, Color: pink, Season:1} editFormData={Season:2} =>{type: dog, Color: blue, Season:2}
+            }
+            return item
+          })
+        )
+      })
+    //setClosetData(newItems);
     setItemId(null)
   }
 
-  const handleEditClick = (event, element) => {
+  const handleEditClick = (event, element) => {//editable component
     event.preventDefault();// prevent event post request
     setItemId(element.id);
 
     const formValues = {
-      type: element.name,
+      type: element.type,
       color: element.color,
       season: element.season,
     }
+
+    // axios.patch("/items/:id", formValues)
+    //   .then((response) => {
+    //     console.log("response is ", response.data)
+    //     return setEditFormData(response.data)
+    //   })
+    // try {
+    //     const myChanges = req.body;
+    //     await knex("closet").update(myChanges).where({ id: req.params.id });
+    //     res.sendStatus(204)
+    // }
+    // catch (err) {
+    //     console.log(err)
+    //     res.sendStatus(400)
+    // }
 
     setEditFormData(formValues)
   }
@@ -106,8 +138,8 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <a href="https://github.com/yukitomeow/closet-app-cc22" target="_blank">Link to Github</a>
-      <from>
+      <a href="https://github.com/yukitomeow/closet-app-cc22">Link to Github</a>
+      <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>
             <tr>
@@ -133,7 +165,7 @@ export default function App() {
             })}
           </tbody>
         </table>
-      </from>
+      </form>
 
       <h2>Add an Item</h2>
       <form onSubmit={handleAddFormSubmit}>

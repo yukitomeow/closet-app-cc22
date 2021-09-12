@@ -74,7 +74,7 @@ app.patch("/items/:id", async (req, res) => {
     try {
         const myChanges = req.body;
         await knex("closet").update(myChanges).where({ id: req.params.id });
-        res.sendStatus(204)
+        res.sendStatus(204)//should only send status which is successful 
     }
     catch (err) {
         console.log(err)
