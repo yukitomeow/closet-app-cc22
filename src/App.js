@@ -108,7 +108,10 @@ export default function App() {
     newItem.splice(index, 1)
     setClosetData(newItem)
 
+
   }
+
+
 
 
   //return が終わってから呼び出される
