@@ -101,6 +101,14 @@ export default function App() {
   const handleCancelClick = () => {
     setItemId(null)
   }
+  const handleDeleteClick = (itemId) => {// koko!
+    const newItem = [...closetData]
+
+    const index = closetData.findIndex((element) => element.id === itemId);
+    newItem.splice(index, 1)
+    setClosetData(newItem)
+
+  }
 
 
   //return が終わってから呼び出される
@@ -142,7 +150,9 @@ export default function App() {
                     />
                     ) : (
                       <ReadOnlyRow element={element}
-                        handleEditClick={handleEditClick} />)}
+                        handleEditClick={handleEditClick}
+                        handleDeleteClick={handleDeleteClick}
+                      />)}
                 </Fragment>
               )
             })}
