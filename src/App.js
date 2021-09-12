@@ -22,7 +22,7 @@ export default function App() {
 
   const handleAddFormChange = (event) => {
     event.preventDefault();// prevent event post request
-    console.log(event.target)
+    //console.log(event.target)
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
@@ -53,27 +53,22 @@ export default function App() {
     }
     axios.post("/items", newItem)
       .then((response) => {
-        console.log("response.data", response.data)
+        //console.log("response.data", response.data)
         return setClosetData(response.data)
       })
   };
 
-  const handleEditFormSubmit = (event) => {//koko???? here!!!
+  const handleEditFormSubmit = (event) => {
     event.preventDefault();// prevent event post request
 
-    console.log("id:", editItemId)
-    console.log("formdata:", editFormData)
+    // console.log("id:", editItemId)
+    // console.log("formdata:", editFormData)
     const editedItem = {
       id: editItemId,
       type: editFormData.type,
       color: editFormData.color,
       season: editFormData.season,
     }
-
-    // const newItems = [...closetData];//// cocomade 41ふん　
-    // const index = closetData.findIndex((element) => element.id === editItemId);
-
-    // newItems[index] = editedItem// updated to 
 
     axios.patch(`/items/${editItemId}`, editedItem)//editedItem is req.body of the request. This is patch, so you dont need return request
       .then(() => {
@@ -89,7 +84,6 @@ export default function App() {
           })
         )
       })
-    //setClosetData(newItems);
     setItemId(null)
   }
 
@@ -102,25 +96,11 @@ export default function App() {
       color: element.color,
       season: element.season,
     }
-
-    // axios.patch("/items/:id", formValues)
-    //   .then((response) => {
-    //     console.log("response is ", response.data)
-    //     return setEditFormData(response.data)
-    //   })
-    // try {
-    //     const myChanges = req.body;
-    //     await knex("closet").update(myChanges).where({ id: req.params.id });
-    //     res.sendStatus(204)
-    // }
-    // catch (err) {
-    //     console.log(err)
-    //     res.sendStatus(400)
-    // }
-
     setEditFormData(formValues)
   }
-
+  const handleCancelClick = () => {
+    setItemId(null)
+  }
 
 
   //return が終わってから呼び出される
@@ -155,8 +135,11 @@ export default function App() {
               return (
                 <Fragment>
                   {editItemId === element.id ?
-                    (<EditableRow editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange} />
+                    (<EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
                     ) : (
                       <ReadOnlyRow element={element}
                         handleEditClick={handleEditClick} />)}
