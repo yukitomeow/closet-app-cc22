@@ -5,9 +5,9 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('closet').insert([
-        { id: 1, type: 'Dress', color: 'Pink', season: 0 },
-        { id: 2, type: 'Sweater', color: 'White', season: 1 },
-        { id: 3, type: 'Skirt', color: 'Purple', season: 2 },
+        { id: 1, type: 'Dress', color: 'Pink', season: "Spring" },
+        { id: 2, type: 'Sweater', color: 'White', season: "Fall" },
+        { id: 3, type: 'Skirt', color: 'Purple', season: "Summer" },
       ]);
     });
 };

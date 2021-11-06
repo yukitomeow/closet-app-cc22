@@ -1,13 +1,16 @@
-import { useState, useEffect, Fragment } from 'react'
-import React from 'react'
-import "./styles.css"
+import React, { useState, useEffect, } from 'react'
 import axios from 'axios'
-import ReadOnlyRow from './component/ReadOnlyRow';
-import EditableRow from './component/EditableRow';
+import TableBody from './component/TableBody';
+import {
+  Stack,
+  TextField,
+  IconButton,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function App() {
 
-  const [closetData, setClosetData] = useState([]);//default value 
+  const [closetData, setClosetData] = useState([]);
   const [addFormData, setAddFormData] = useState({
     type: '',
     color: '',
@@ -22,12 +25,9 @@ export default function App() {
 
   const handleAddFormChange = (event) => {
     event.preventDefault();// prevent event post request
-    //console.log(event.target)
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
-
     const newFormData = { ...addFormData };//spread object means copy of addFormData
-
     newFormData[fieldName] = fieldValue
 
     setAddFormData(newFormData);
@@ -35,13 +35,10 @@ export default function App() {
 
   const handleEditFormChange = (event) => {
     event.preventDefault();// prevent event post request
-
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
-
     const newFormData = { ...editFormData }//spread object means copy of editFormData   本物のコピーができる　参照ではない
     newFormData[fieldName] = fieldValue;
-
     setEditFormData(newFormData);
   }
 
@@ -60,9 +57,6 @@ export default function App() {
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();// prevent event post request
-
-    // console.log("id:", editItemId)
-    // console.log("formdata:", editFormData)
     const editedItem = {
       id: editItemId,
       type: editFormData.type,
@@ -78,7 +72,7 @@ export default function App() {
               return {
                 ...item,
                 ...editFormData
-              }// item={type: cat, Color: pink, Season:1} editFormData={Season:2} =>{type: dog, Color: blue, Season:2}
+              }
             }
             return item
           })
@@ -101,18 +95,15 @@ export default function App() {
   const handleCancelClick = () => {
     setItemId(null)
   }
-  const handleDeleteClick = (itemId) => {// koko!
-    const newItem = [...closetData]
-
-    const index = closetData.findIndex((element) => element.id === itemId);
-    newItem.splice(index, 1)
-    setClosetData(newItem)
-
-
+  const handleDeleteClick = (itemId, event) => {// koko!
+    event.preventDefault();
+    axios.delete(`/items/${itemId}`)
+      .then(response => {
+        console.log(response)
+        setClosetData(closetData.filter(element => element.id !== itemId))
+      })
+      .catch(err => console.log(err))
   }
-
-
-
 
   //return が終わってから呼び出される
   useEffect(() => {//instead of using fetch use Axios
@@ -127,67 +118,57 @@ export default function App() {
       })
   }, [])//trigering ながれをおう
 
+
   return (
     <div className="app-container">
       <a href="https://github.com/yukitomeow/closet-app-cc22">Link to Github</a>
+
+      <Stack direction="row" size="large" type="submit" spacing={2}>
+
+        <form noValidate autoComplete="off" onSubmit={handleAddFormSubmit}>
+          <TextField
+            name="type"
+            required="required"
+            label="Enter Style..."
+            variant="filled"
+            onChange={handleAddFormChange}
+          />
+          <TextField
+            name="color"
+            required="required"
+            label="Enter Color..."
+            variant="filled"
+            onChange={handleAddFormChange}
+          />
+          <TextField
+            name="season"
+            required="required"
+            label="Enter Season..."
+            variant="filled"
+            onChange={handleAddFormChange}
+          />
+          <IconButton aria-label="add" size="large" type="submit">
+            <AddIcon fontSize="large" />
+          </IconButton>
+        </form>
+
+      </Stack >
+
       <form onSubmit={handleEditFormSubmit}>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Type</th>
-              <th>Color</th>
-              <th>Season</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {closetData.map((element) => {
-              return (
-                <Fragment>
-                  {editItemId === element.id ?
-                    (<EditableRow
-                      editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange}
-                      handleCancelClick={handleCancelClick}
-                    />
-                    ) : (
-                      <ReadOnlyRow element={element}
-                        handleEditClick={handleEditClick}
-                        handleDeleteClick={handleDeleteClick}
-                      />)}
-                </Fragment>
-              )
-            })}
-          </tbody>
-        </table>
+
+        <TableBody
+          handleEditFormChange={handleEditFormChange}
+          handleCancelClick={handleCancelClick}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          closetData={closetData}
+          editItemId={editItemId}
+          editFormData={editFormData}
+        />
+
+
       </form>
 
-      <h2>Add an Item</h2>
-      <form onSubmit={handleAddFormSubmit}>
-        <input
-          type="text"
-          name="type"
-          required="required"
-          placeholder="Enter type..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="text"
-          name="color"
-          required="required"
-          placeholder="Enter color..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="text"
-          name="season"
-          required="required"
-          placeholder="Enter season..."
-          onChange={handleAddFormChange}
-        />
-        <button type="submit">Add</button>
-      </form>
     </div >
   )
 }

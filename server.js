@@ -5,7 +5,6 @@ const cors = require("cors");//ports confricting
 
 // Importing JSON data
 const port = 9991
-
 //setting port number 3000
 
 const app = express();
@@ -24,7 +23,6 @@ const logger = (req, res, next) => {
     console.log("hello!");
     next();//oteseinomonoha next()woyobu 自分で作ったミドルウェア
 }
-
 //init middleware
 app.use(logger);
 
@@ -61,7 +59,7 @@ app.post("/items", async (req, res) => {
 
 app.delete('/items/:id', async (req, res) => {
     try {
-        await knex("closet").delete().where({ id: req.params.id })//id: (from DB)
+        await knex("closet").where({ id: req.params.id }).del()//id: (from DB)
         res.sendStatus(204)
     }
     catch (err) {

@@ -6,15 +6,21 @@
   },
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.3",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/material": "^5.0.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.21.3",
+    "axios": "^0.21.4",
+    "concurrently": "^6.3.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.11",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.14",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -26,9 +32,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "node -r dotenv/config server.js",
-    "nodemon-start": "nodemon -r dotenv/config server.js",
+    "nodemon-start": "nodemon -r dotenv/config server.js  --ignore client",
     "migrate": "knex migrate:latest",
-    "react": "react-scripts start",
+    "react": "react-scripts start --prefix client",
     "heroku-postbuild": "react-scripts build --prod"
   },
   "eslintConfig": {
@@ -49,5 +55,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9991"
+  "proxy": "http://localhost:9991/",
+  "secure": false
 }
