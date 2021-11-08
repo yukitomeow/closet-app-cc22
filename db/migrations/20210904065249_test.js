@@ -4,7 +4,7 @@ exports.up = function (knex) {
         table.increments();
         table.string('type').notNullable();
         table.string('color').notNullable();
-        table.integer('season').notNullable();
+        table.string('season').notNullable();
     })
 };
 
